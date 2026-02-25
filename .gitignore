@@ -1,6 +1,20 @@
+# Окружение
+.venv/
+venv/
+ENV/
+
+# Настройки IDE
+.idea/
+.vscode/
+
+# Секреты
 .env
+
+# Кэш Python
 __pycache__/
+*.py[cod]
+
+# Данные и логи
+logs/
 *.log
 data/*.ods
-venv/
-.DS_Store

@@ -23,17 +23,14 @@ class BrowserEngine:
             await page.goto(url, timeout=90000)
             await asyncio.sleep(4)
 
-            # Проверка на пустой сайт и генерация
             await self._ensure_content_generated(page, url)
 
-            # Проход по всем страницам
             for p_name in ALL_PAGES:
                 try:
                     await self._process_single_page(page, p_name, curr, url)
                 except Exception as e:
                     logger.warning(f"Ошибка на странице {p_name} ({url}): {e}")
 
-            # Сохранение
             await page.locator("button:has-text('Зберегти'), input[value='Зберегти']").first.click()
             await page.wait_for_load_state("networkidle", timeout=60000)
             logger.info(f"✅ УСПЕХ: {url}")
@@ -64,7 +61,7 @@ class BrowserEngine:
                 if await ai_cb.count() > 0: await ai_cb.check()
                 await page.locator("button:has-text('Підтвердити')").click()
 
-            await asyncio.sleep(305)  # Ожидание генерации
+            await asyncio.sleep(305)
             await page.reload()
             await asyncio.sleep(5)
 
